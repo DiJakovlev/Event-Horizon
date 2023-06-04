@@ -14,7 +14,7 @@ class Event(models.Model):
     shareable = models.BooleanField(null=False, blank=False)
     invite_only = models.BooleanField(null=False, blank=False)
     show_remaining = models.BooleanField(null=False, blank=False)
-    password = models.CharField(null=True, blank=True)
+    password = models.CharField(null=True, blank=True, max_length=100)
     capacity = models.IntegerField(null=False, blank=False)
 
 
