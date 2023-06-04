@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Events(models.Model):
+class Event(models.Model):
     name = models.TextField(null=False, blank=False, max_length=999)
     summary = models.CharField(null=False, blank=False, max_length=140)
     description = models.TextField(null=False, blank=False, max_length=999)
@@ -16,6 +16,8 @@ class Events(models.Model):
     show_remaining = models.BooleanField(null=False, blank=False)
     password = models.CharField(null=True, blank=True)
     capacity = models.IntegerField(null=False, blank=False)
+
+
 
 
 
