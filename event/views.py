@@ -1,3 +1,22 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
 
-# Create your views here.
+
+class IndexView(View):
+    pass
+
+
+class EventListView(View):
+    pass
+
+
+class EventView(View):
+    pass
+
+
+class TicketPurchaseView(LoginRequiredMixin, View):
+    pass
+
+
+class PurchaseConfirmationView(LoginRequiredMixin, View):
+    pass
