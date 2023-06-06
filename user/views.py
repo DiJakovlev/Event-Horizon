@@ -18,5 +18,16 @@ class RegisterView(View):
             return redirect('index')
 
 
-class ProfileView(LoginRequiredMixin, View):
-    pass
+# class ProfileView(LoginRequiredMixin, View):
+#     template_name = 'user_profile'
+
+#     def get(self, request):
+#         user = request.user
+#         tickets = Ticket.objects.filter(user=user)
+
+#         context = {
+#             'user': user,
+#             'tickets': tickets
+#         }
+
+#         return render(request, self.template_name, context)
