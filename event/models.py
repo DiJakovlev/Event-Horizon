@@ -16,6 +16,7 @@ class Event(models.Model):
     show_remaining = models.BooleanField(null=False, blank=False)
     password = models.CharField(null=True, blank=True, max_length=100)
     capacity = models.IntegerField(null=False, blank=False)
+    objects = models.Manager()
 
 
 
