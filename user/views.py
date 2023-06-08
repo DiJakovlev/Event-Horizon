@@ -8,7 +8,7 @@ from .forms import UserRegisterForm
 class RegisterView(View):
     def get(self, request):
         form = UserRegisterForm()
-        return render(request, 'users/homepage.html', {'form': form})
+        return render(request, 'users/registration_page.html', {'form': form})
 
     def post(self, request):
         form = UserRegisterForm(request.POST)
@@ -18,16 +18,16 @@ class RegisterView(View):
             return redirect('index')
 
 
-# class ProfileView(LoginRequiredMixin, View):
-#     template_name = 'user_profile'
+class ProfileView(LoginRequiredMixin, View):
+    template_name = 'user_profile'
 
-#     def get(self, request):
-#         user = request.user
-#         tickets = Ticket.objects.filter(user=user)
+    def get(self, request):
+        user = request.user
+        tickets = Ticket.objects.filter(user=user)
 
-#         context = {
-#             'user': user,
-#             'tickets': tickets
-#         }
+        context = {
+            'user': user,
+            'tickets': tickets
+        }
 
-#         return render(request, self.template_name, context)
+        return render(request, self.template_name, context)
