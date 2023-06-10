@@ -14,15 +14,14 @@
     </div>
     <br><br>
     <div class="row">
-      {% for event in all_events %}
         <div class="col-md-4 col-sm-6 col-lg-3">
           <div class="card">
-            <img class="card-img-top" src="{{ event.event_logo }}" alt="Card image cap">
+            <img class="card-img-top" src="{{ all_events.event_logo }}" alt="Card image cap">
             <div class="card-body text-center">
-              <p class="card-title">{{ event.name }}</p>
+              <p class="card-title">{{ all_events.name }}</p>
               <hr>
-              <p class="card-text">{{ event.description }}</p>
-              <a href="/meals/{{event.id}}"
+              <p class="card-text">{{ all_events.description }}</p>
+              <a href="/meals/{{all_events.id}}"
               ><input
                 type="submit"
                 value="Learn More"
@@ -33,7 +32,6 @@
           </div>
           <br><br><br>
         </div>
-      {% endfor %}
     </div>
   </div>
 {% endblock %}

@@ -4,7 +4,6 @@ from .models import Event
 from django.views import View
 import requests
 
-
 """Page view classes"""
 
 
@@ -13,35 +12,58 @@ class IndexView(View):
 
     def get(self, request):
         all_events = {}
+
         if 'event_id' in request.GET:
-            event_id = request.GET['event_id']
+            event_id = request.GET.get('event_id')
             url = f'https://www.eventbriteapi.com/v3/events/{event_id}/?token=HYQLBZQMBFLBRTL3PQJE'
-            response = requests.get(url)
-            data = response.json()
 
-            if 'event' in data:
-                event = data['event']
+            try:
+                response = requests.get(url)
+                response.raise_for_status()  # Raise an exception for non-successful status codes
+                data = response.json()
 
-                event_data = Event(
-                    name=event['name']['text'],
-                    summary=event['summary']['text'],
-                    description=event['description']['text'],
-                    url=event['url'],
-                    start_date=event['start']['utc'],
-                    end_date=event['end']['utc'],
-                    currency=event['currency'],
-                    online_event=event['online_event'],
-                    listed=event['listed'],
-                    shareable=event['shareable'],
-                    capacity=event['capacity'],
-                    event_logo=event['logo']['original']['url']
+                if not data:
+                    raise ValueError("Empty response body")
+
+                event = data
+                event_data, created = Event.objects.update_or_create(
+                    event_id=event_id,
+                    defaults={
+                        'name': event.get('name', {}).get('text'),
+                        'summary': event.get('summary'),
+                        'description': event.get('description', {}).get('text'),
+                        'url': event.get('url'),
+                        'start_date': event.get('start', {}).get('utc'),
+                        'end': event.get('end', {}).get('utc'),
+                        'currency': event.get('currency'),
+                        'online_event': event.get('online_event'),
+                        'listed': event.get('listed'),
+                        'shareable': event.get('shareable'),
+                        'capacity': event.get('capacity'),
+                        'event_logo': event.get('logo', {}).get('original', {}).get('url')
+                    }
                 )
                 event_data.save()
-                all_events = Event.objects.all().order_by('-id')
-            else:
-                # Handle the case when 'event' key is missing in the response
+                all_events = Event.objects.filter(event_id=event_id).first()
+
+            except requests.exceptions.HTTPError as error:
+                # Handle HTTP errors (e.g., 404, 500)
+                print(f"HTTP error occurred: {error}")
                 # Add appropriate error handling or response as needed
-                pass
+            except requests.exceptions.RequestException as error:
+                # Handle request exceptions (e.g., connection error, timeout, invalid URL)
+                print(f"Request failed: {error}")
+                # Add appropriate error handling or response as needed
+
+            except ValueError as error:
+                # Handle the case when the response body is empty
+                print(f"Empty response body: {error}")
+                # Add appropriate error handling or response as needed
+
+        else:
+            # Handle the case when 'event' key is missing in the response
+            # Add appropriate error handling or response as needed
+            pass
 
         return render(request, self.template_name, {"all_events": all_events})
 
@@ -90,7 +112,3 @@ class PurchaseConfirmationView(LoginRequiredMixin, View):
 
     def get(self, request):
         return render(request, self.template_name)
-
-
-
-
