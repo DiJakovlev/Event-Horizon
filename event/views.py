@@ -11,7 +11,7 @@ class IndexView(View):
     template_name = 'event/index_page.html'
 
     def get(self, request):
-        all_events = {}
+        selected_events = {}
 
         if 'event_id' in request.GET:
             event_id = request.GET.get('event_id')
@@ -21,10 +21,8 @@ class IndexView(View):
                 response = requests.get(url)
                 response.raise_for_status()  # Raise an exception for non-successful status codes
                 data = response.json()
-
                 if not data:
                     raise ValueError("Empty response body")
-
                 event = data
                 event_data, created = Event.objects.update_or_create(
                     event_id=event_id,
@@ -39,17 +37,17 @@ class IndexView(View):
                         'online_event': event.get('online_event'),
                         'listed': event.get('listed'),
                         'shareable': event.get('shareable'),
-                        'capacity': event.get('capacity'),
                         'event_logo': event.get('logo', {}).get('original', {}).get('url')
                     }
                 )
                 event_data.save()
-                all_events = Event.objects.filter(event_id=event_id).first()
+                selected_events = Event.objects.filter(event_id=event_id).first()
 
             except requests.exceptions.HTTPError as error:
                 # Handle HTTP errors (e.g., 404, 500)
                 print(f"HTTP error occurred: {error}")
                 # Add appropriate error handling or response as needed
+
             except requests.exceptions.RequestException as error:
                 # Handle request exceptions (e.g., connection error, timeout, invalid URL)
                 print(f"Request failed: {error}")
@@ -65,7 +63,7 @@ class IndexView(View):
             # Add appropriate error handling or response as needed
             pass
 
-        return render(request, self.template_name, {"all_events": all_events})
+        return render(request, self.template_name, {"selected_events": selected_events})
 
 
 class EventListView(View):

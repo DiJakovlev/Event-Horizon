@@ -16,12 +16,12 @@
     <div class="row">
         <div class="col-md-4 col-sm-6 col-lg-3">
           <div class="card">
-            <img class="card-img-top" src="{{ all_events.event_logo }}" alt="Card image cap">
+            <img class="card-img-top" src="{{ selected_events.event_logo }}" alt="Card image cap">
             <div class="card-body text-center">
-              <p class="card-title">{{ all_events.name }}</p>
+              <p class="card-title">{{ selected_events.name }}</p>
               <hr>
-              <p class="card-text">{{ all_events.description }}</p>
-              <a href="/meals/{{all_events.id}}"
+              <p class="card-text">{{ selected_events.description }}</p>
+              <a href="/meals/{{selected_events.id}}"
               ><input
                 type="submit"
                 value="Learn More"
