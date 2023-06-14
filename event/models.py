@@ -1,7 +1,6 @@
 import random
-
 from django.db import models
-from user.forms import UserRegisterForm
+from django.contrib.auth.models import User
 
 
 class Event(models.Model):
@@ -25,17 +24,17 @@ class Event(models.Model):
 
 class Ticket(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    user = models.ForeignKey(UserRegisterForm, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     purchase_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.event.name} - {self.user.name}"
+        return f"{self.event.name} - {self.user.first_name}"
 
 
 class ShoppingCart(models.Model):
-    user = models.OneToOneField(UserRegisterForm, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     tickets = models.ManyToManyField(Ticket)
 
     def __str__(self):
-        return f"{self.user.name}'s shopping cart"
+        return f"{self.user.first_name}'s shopping cart"
