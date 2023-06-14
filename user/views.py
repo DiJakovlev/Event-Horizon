@@ -2,16 +2,17 @@ from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
-from .forms import UserRegisterForm
+from .forms import User
+from event.models import Ticket
 
 
 class RegisterView(View):
     def get(self, request):
-        form = UserRegisterForm()
-        return render(request, 'users/registration_page.html', {'form': form})
+        form = User()
+        return render(request, 'event/registration_page.html', {'form': form})
 
     def post(self, request):
-        form = UserRegisterForm(request.POST)
+        form = User(request.POST)
 
         if form.is_valid():
             form.save()
@@ -19,7 +20,7 @@ class RegisterView(View):
 
 
 class ProfileView(LoginRequiredMixin, View):
-    template_name = 'user_profile'
+    template_name = 'user/profile_page.html'
 
     def get(self, request):
         user = request.user

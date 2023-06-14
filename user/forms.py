@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
+from event.models import Event
+
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
@@ -20,3 +22,8 @@ class UserRegisterForm(UserCreationForm):
             'password1',
             'password2',
         ]
+
+
+class TicketPurchaseForm(forms.ModelForm):
+    event = forms.ModelChoiceField(queryset=Event.objects.all())
+    quantity = forms.IntegerField(min_value=1, initial=1)

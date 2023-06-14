@@ -1,14 +1,23 @@
 {% extends 'event/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
+    <div>
+        <h1>Sign up</h1>
+        <form method="post">
 
-<form method="post">
+            {% csrf_token %}
+            {{ form.crispy }}
 
-  {% csrf_token %}
-  {{ form.as_p }}
+            <button type="submit">Login</button>
 
-  <button type="submit">Login</button>
-
-</form>
-
+        </form>
+        <div>
+            <small>Already have an account?
+                <a href="{% url 'login-page' %}">
+                    Sign in
+                </a>
+            </small>
+        </div>
+    </div>
 {% endblock content %}

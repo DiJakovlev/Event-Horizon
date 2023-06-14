@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404
-from .models import Event
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Event, Ticket
 from django.views import View
+from user.forms import TicketPurchaseForm
 import requests
 
 """Page view classes"""
@@ -93,16 +94,24 @@ class EventView(View):
 
 
 class TicketPurchaseView(LoginRequiredMixin, View):
-    template_name = 'ticket_purchase.html'
+    def get(self, request):
+        form = TicketPurchaseForm
 
-    def get(self, request, event_id):
-        event = Event.objects.get(id=event_id)
+        return render(request, 'event/ticket_purchase.html', {'form': form})
 
-        context = {
-            'event': event
-        }
+    def post(self, request):
+        form = TicketPurchaseForm
+        if form.is_valid:
+            event = form.cleaned_data['event']
+            quantity = form.cleaned_data['quantity']
 
-        return render(request, self.template_name, context)
+            for _ in range(quantity):
+                ticket = Ticket(user=request.user, event=event)
+                ticket.save()
+
+            return redirect('purchase-conformation')
+
+        return render(request, 'event/ticket_purchase.html', {'form': form})
 
 
 class PurchaseConfirmationView(LoginRequiredMixin, View):
