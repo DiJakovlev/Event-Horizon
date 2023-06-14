@@ -1,3 +1,4 @@
+import random
 from django.db import models
 
 
@@ -13,9 +14,9 @@ class Event(models.Model):
     online_event = models.BooleanField(null=False, blank=False)
     listed = models.BooleanField(null=False, blank=False)
     shareable = models.BooleanField(null=False, blank=False)
-    capacity = models.IntegerField(null=True, blank=True, default=0)
+    capacity = models.IntegerField(null=True, blank=True, default=random.randint(5, 40))
     event_logo = models.ImageField(null=False, blank=False, default='No logo provided', max_length=512)
-    objects = models.Manager()
 
     def __str__(self):
         return self.name
+
