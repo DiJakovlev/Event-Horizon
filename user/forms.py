@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from event.models import Event
+from event.models import Event, Ticket
 
 
 class UserRegisterForm(UserCreationForm):
@@ -26,3 +26,7 @@ class UserRegisterForm(UserCreationForm):
 class TicketPurchaseForm(forms.ModelForm):
     event = forms.ModelChoiceField(queryset=Event.objects.all())
     quantity = forms.IntegerField(min_value=1, initial=1)
+
+    class Meta:
+        model = Ticket
+        fields = ['event', 'quantity']
