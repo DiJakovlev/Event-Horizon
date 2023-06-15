@@ -8,7 +8,7 @@
     <p>Start date: {{ form.event.start_date }}</p>
     <p>Price: {{ form.event.price }}</p>
 
-    <form method="post">
+    <form method="POST">
     {% csrf_token %}
 
     {{ form.crispy }}

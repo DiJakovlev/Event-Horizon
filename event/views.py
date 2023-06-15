@@ -94,13 +94,17 @@ class EventView(View):
 
 
 class TicketPurchaseView(LoginRequiredMixin, View):
-    def get(self, request):
-        form = TicketPurchaseForm
-
-        return render(request, 'event/ticket_purchase.html', {'form': form})
+    def get(self, request, pk):
+        form = TicketPurchaseForm()
+        event = get_object_or_404(Event, pk=pk)
+        context = {
+            'form': form,
+            'event': event,
+        }
+        return render(request, 'event/ticket_purchase.html', context)
 
     def post(self, request):
-        form = TicketPurchaseForm
+        form = TicketPurchaseForm(request.POST)
         if form.is_valid:
             event = form.cleaned_data['event']
             quantity = form.cleaned_data['quantity']

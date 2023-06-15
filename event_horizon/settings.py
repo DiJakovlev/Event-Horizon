@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-tu3%#9kkcj$ejl6j1+dsx335e*xfw+1$=6h#bi$%bcftp1q4dv
 DEBUG = True
 
 ALLOWED_HOSTS = []
-LOGIN_URL = 'login'
+LOGIN_URL = 'login-page'
 
 # Application definition
 
@@ -134,3 +134,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
+
+LOGIN_REDIRECT_URL = 'index'
