@@ -1,16 +1,25 @@
 {% extends 'event/base.html' %}
 {% block content %}
 
-{% load static %}
+
   <div class = "container">
     <div class = "text-center container">
       <br>
-      <h2 class = "text-center">Search for your favorite Event</h2>
+      <h1 class = "text-center">Welcome to Event Horizon - The best place to find events!</h1>
+      <h2 class = "text-center">Search for an event</h2>
       <br>
-      <form method="GET">
-        <input type = "text" name = "event_id" placeholder="Search..." class = "text-center">
-        <button type = "submit" class = "btn-danger btn-sm">SEARCH EVENT</button>
-      </form>
+ <form method="GET">
+  <div class="input-group">
+    <input type="text" name="event_id" placeholder="Search..." class="form-control">
+    <div class="input-group-append">
+      <button type="submit" class="btn btn-danger">
+        <i class="bi bi-search"></i>
+      </button>
+        <br>
+        <button type="submit" class="btn btn-danger" href="{%  url 'event-list' %}">Explore events</button>
+    </div>
+  </div>
+</form>
     </div>
     <br><br>
     <div class="row">
