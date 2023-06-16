@@ -1,5 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import DetailView
+
 from .models import Event, Ticket
 from django.views import View
 from user.forms import TicketPurchaseForm
@@ -94,14 +96,18 @@ class EventView(View):
 
 
 class TicketPurchaseView(LoginRequiredMixin, View):
-    def get(self, request):
-        form = TicketPurchaseForm
+    def get(self, request, pk):
+        form = TicketPurchaseForm()
+        event = get_object_or_404(Event, pk=pk)
+        context = {
+            'form': form,
+            'event': event,
+        }
+        return render(request, 'event/ticket_purchase.html', context)
 
-        return render(request, 'event/ticket_purchase.html', {'form': form})
-
-    def post(self, request):
-        form = TicketPurchaseForm
-        if form.is_valid:
+    def post(self, request, pk):
+        form = TicketPurchaseForm(request.POST)
+        if form.is_valid():
             event = form.cleaned_data['event']
             quantity = form.cleaned_data['quantity']
 
@@ -109,13 +115,17 @@ class TicketPurchaseView(LoginRequiredMixin, View):
                 ticket = Ticket(user=request.user, event=event)
                 ticket.save()
 
-            return redirect('purchase-conformation')
+            return redirect('purchase-confirmation', pk=pk)
 
-        return render(request, 'event/ticket_purchase.html', {'form': form})
+        context = {
+            'form': form,
+            'event': get_object_or_404(Event, pk=pk),
+        }
+        return render(request, 'event/ticket_purchase.html', context)
 
 
-class PurchaseConfirmationView(LoginRequiredMixin, View):
-    template_name = 'purchase_confirmation.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
+class PurchaseConfirmationView(LoginRequiredMixin, DetailView):
+    model = Event
+    template_name = 'event/purchase_confirmation.html'
+    context_object_name = 'event'
+    pk_url_kwarg = 'pk'
