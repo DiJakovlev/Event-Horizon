@@ -1,6 +1,15 @@
 {% extends 'event/base.html' %}
+
 {% block content %}
-    {%  for event in events %}
-        <p>ID: {{ event.id }}</p>
+    {% for event in events %}
+<div class="row">
+  <div class="column">
+      <img src="{{ event.event_logo }}" alt="{{ event.name }}"
+        width="20%">
+      <h3>{{ event.name }}</h3>
+      <p>{{ event.description }}</p>
+          </div>
+</div>
+
     {% endfor %}
 {% endblock content %}

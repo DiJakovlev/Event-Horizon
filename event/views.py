@@ -68,7 +68,7 @@ class IndexView(View):
 
 
 class EventListView(View):
-    template_name = 'event_list.html'
+    template_name = 'event/event_list.html'
 
     def get(self, request):
         events = Event.objects.all()
