@@ -15,7 +15,7 @@ class RegisterView(View):
 
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('index-page')
 
         return render(request, 'event/registration_page.html', {'form': form})
 
