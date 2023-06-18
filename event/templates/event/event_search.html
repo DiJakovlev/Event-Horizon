@@ -1,0 +1,27 @@
+{% extends 'event/base.html' %}
+{% block content %}
+  <div class="container">
+    <h2>Search for Events</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Display search results -->
+    {% if search_results %}
+      <h3>Search Results:</h3>
+      {% for event in search_results %}
+        <div>
+          <h4>{{ event.title }}</h4>
+          <p>{{ event.start_date }}</p>
+          <p>{{ event.address }}</p>
+          <p>{{ event.description }}</p>
+          <p>{{ event.venue }}</p>
+          <img src="{{ event.event_logo }}" alt="{{ event.title }} logo">
+          <a href="{{ event.link }}">Event Link</a>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endblock %}
