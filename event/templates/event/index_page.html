@@ -1,37 +1,14 @@
 {% extends 'event/base.html' %}
 {% block content %}
-
-{% load static %}
-  <div class = "container">
-    <div class = "text-center container">
-      <br>
-      <h2 class = "text-center">Search for your favorite Event</h2>
-      <br>
-      <form method="GET">
-        <input type = "text" name = "event_id" placeholder="Search..." class = "text-center">
-        <button type = "submit" class = "btn-danger btn-sm">SEARCH EVENT</button>
+  <div class="container">
+    <div class="login-form">
+      <h2>Login</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Login</button>
       </form>
-    </div>
-    <br><br>
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-lg-3">
-          <div class="card">
-            <img class="card-img-top" src="{{ selected_events.event_logo }}" alt="Card image cap">
-            <div class="card-body text-center">
-              <p class="card-title">{{ selected_events.name }}</p>
-              <hr>
-              <p class="card-text">{{ selected_events.description }}</p>
-              <a href="/event/{{selected_events.id}}"
-              ><input
-                type="submit"
-                value="Learn More"
-                class="btn btn-danger btn-sm"
-                type="button"
-            /></a>
-            </div>
-          </div>
-          <br><br><br>
-        </div>
+      <p class="text-center">Don't have an account? <a href="{% url 'registration-page' %}">Register</a></p>
     </div>
   </div>
 {% endblock %}
