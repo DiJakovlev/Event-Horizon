@@ -1,17 +1,6 @@
 {% extends 'event/base.html' %}
 {% block content %}
-    <header>
-        <nav>
-            <!-- Other navigation links go here -->
-            {% if user.is_authenticated %}
-                <a href="{% url 'logout-page' %}">Logout</a>
-            {% else %}
-                <a href="{% url 'login-page' %}">Login</a>
-                <a href="{% url 'registration-page' %}">Register</a>
-            {% endif %}
-        </nav>
-    </header>
-    <a href="{% url 'event-search' %}">Search for events</a>
+
     {% for event in object_list %}
     <h2>{{ event.title }}</h2>
     <p>{{ event.start_date }}</p>
