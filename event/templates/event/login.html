@@ -1,19 +1,25 @@
 {% extends 'event/base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div>
-        <h2>Sign in</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Sign in</button>
-        </form>
-        <div>
-            <small>Need an account?
-                <a href="{% url 'registration-page' %}">Sign up
-                </a>
-            </small>
+    <div class="login-container">
+        <div class="logo-container">
+            <img src="{% static 'theme/css/Event-modified.png' %}" alt="Event-Horizon Logo" class="logo-image">
+        </div>
+        <div class="login-form-container">
+            <h2 class="login-title">Log in</h2>
+            <form method="post" class="login-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="login-button">Log In</button>
+            </form>
+            <div class="signup-link">
+                <small>Don't have an account? <a href="{% url 'registration-page' %}">Sign up</a></small>
+            </div>
+            <div class="forgot-password-link">
+                <a href="#">Forgot password?</a>
+            </div>
         </div>
     </div>
 {% endblock content %}
