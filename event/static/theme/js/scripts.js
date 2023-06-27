@@ -4,7 +4,7 @@
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-grayscale/blob/master/LICENSE)
 */
 //
-// Scripts h
+// Scripts hs
 // 
 
 window.addEventListener('DOMContentLoaded', event => {
