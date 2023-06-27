@@ -3696,11 +3696,19 @@ textarea.form-control-lg {
   font-family: Arial, sans-serif;
   margin-top: 10px;
   margin-left: 10px;
+  margin-right: 20px; /* Adjust the spacing between the logo and the form */
 }
 
 .logo {
   display: flex;
   align-items: center;
+}
+
+.logo-image {
+    width: 500px; /* Adjust the desired width */
+    height: auto; /* Maintain aspect ratio */
+    position: relative;
+    filter: brightness(90%) saturate(100%) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8)); /* Adjust the shadow properties as needed */
 }
 
 .logo-icon {
@@ -3720,6 +3728,40 @@ textarea.form-control-lg {
   color: white;
 }
 
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Adjust the height as needed */
+}
+
+.login-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fcecc4;
+}
+
+.login-form-container {
+    padding: 30px;
+    border: 1px solid rgba(252, 236, 196, 0.66);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    margin-bottom: 20px;
+}
+
+.login-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fcecc4;
+    background-color: rgba(252, 64, 54, 0.68);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
 .slogan {
     font-size: 14px;
@@ -11199,6 +11241,25 @@ body {
   .projects-section .project-text {
     padding: 5rem;
   }
+}
+
+.signup-link,
+.forgot-password-link {
+    text-align: center;
+    margin-top: 10px;
+    color: #fcaa8c;
+}
+
+.signup-link a,
+.forgot-password-link a {
+    color: #fcaa8c;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signup-link a:hover,
+.forgot-password-link a:hover {
+    text-decoration: underline;
 }
 
 .signup-section {
