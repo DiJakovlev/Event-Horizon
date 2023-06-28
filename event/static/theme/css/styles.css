@@ -10,6 +10,60 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+.form-container {
+  text-align: center;
+}
+
+.form-container form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.form-container form p {
+  margin: 10px 0;
+}
+
+.form-container form input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 500px;
+  transition: background-color 0.3s;
+}
+
+.form-container form input[type="text"]:hover {
+  background-color: #a16468;
+}
+
+.form-container form .btn btn-danger{
+  margin-top: 10px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
+.form-container form .btn i {
+  margin-right: 5px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: rgba(252, 236, 196, 0.66);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: ;
+}
+
 
 :root {
   --bs-blue: #0d6efd;
@@ -102,7 +156,7 @@ body {
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
-  color: white;
+  color: rgba(252, 236, 196, 0.66);
   text-align: var(--bs-body-text-align);
   background-color: var(--bs-body-bg);
   background-image: url("black-hole-4092609_1920.jpg");
@@ -3690,6 +3744,8 @@ textarea.form-control-lg {
     bottom: 0;
     left: 0;
     width: 100%;
+  z-index: 9999;
+
 }
 
 .logo-container {
@@ -3714,7 +3770,7 @@ textarea.form-control-lg {
 .logo-icon {
   width: 16px;
   height: 16px;
-  fill: white;
+  fill: rgba(252, 236, 196, 0.66);
   margin-right: 5px;
 }
 
@@ -3725,7 +3781,7 @@ textarea.form-control-lg {
   font-style: italic;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   transform: perspective(200px) rotateX(-10deg);
-  color: white;
+  color: rgba(252, 236, 196, 0.66);
 }
 
 .login-container {
@@ -3770,13 +3826,14 @@ textarea.form-control-lg {
     font-style: italic;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     transform: perspective(200px) rotateX(2deg);
-    color: white;
+    color: rgba(252, 236, 196, 0.66);;
   }
 
 .nav {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    z-index: 9999;
 }
 
 .nav a {
