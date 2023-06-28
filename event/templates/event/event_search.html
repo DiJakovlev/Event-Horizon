@@ -1,29 +1,66 @@
 {% extends 'event/base.html' %}
+
 {% block content %}
-    <h2 style="text-align: center; padding-top: 50px" >Search for Events</h2>
-    <br>
-   <div class="form-container" style="text-align: center">
+<style>
+  .event-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 70px;
+  }
+
+  .event-box {
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+      color: rgba(252, 236, 196, 0.66);
+      padding: 30px;
+    border: 1px solid rgba(252, 236, 196, 0.66);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    margin-bottom: 20px;
+  }
+
+  .event-box:hover {
+     transform: scale(1.05) translateZ(1px);
+  }
+
+  .event-box img {
+    max-width: 200px;
+    height: auto;
+    margin: 10px 0;
+  }
+</style>
+
+  <h2 style="text-align: center; padding-top: 50px">Search for Events</h2>
+  <br>
+  <div class="form-container">
   <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% for field in form %}
+      {{ field }}
+    {% endfor %}
     <button type="submit" class="btn btn-danger">
       <i class="bi bi-search"></i>
     </button>
   </form>
 </div>
-    <!-- Display search results -->
+
+  <!-- Display search results -->
+  <div class="event-container">
     {% if search_results %}
       {% for event in search_results %}
-        <div style="text-align: center; padding-top: 75px">
+        <div class="event-box">
           <h4>{{ event.title }}</h4>
           <p>{{ event.start_date }}</p>
           <p>{{ event.address }}</p>
-          <p>{{ event.description }}</p>
-          <p>{{ event.venue }}</p>
-          <img src="{{ event.event_logo }}" alt="{{ event.title }} logo">
-          <a href="{{ event.link }}">Event Link</a>
+          <img src="{{ event.event_logo }}" alt="{{ event.title }} logo" style="max-height:200px; max-width:200px;">
+            <br>
+            <br>
+        <a href="{% url 'detail-view' event.id %}" class="btn btn-danger">Read more</a>
         </div>
       {% endfor %}
+    {% else %}
+      <p>No events found.</p>
     {% endif %}
   </div>
 {% endblock %}
