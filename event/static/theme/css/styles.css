@@ -10,8 +10,80 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+.bank-selection {
+  display: flex;
+  justify-content: center;
+}
+
+.bank-logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  margin-right: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.bank-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.custom-button {
+  background-color: #7a4b4d !important;
+}
+
+.form-group .btn {
+  margin-bottom: 100px;
+}
+
+#ticketPurchase {
+  margin-top: 20px;
+  position: relative;
+}
+
+#ticketPurchase .form-group {
+  margin-bottom: 20px;
+}
+
+#ticketPurchase label {
+  font-weight: bold;
+}
+
+#ticketPurchase input[type="number"] {
+  width: 100px;
+  margin: auto;
+}
+
+#ticketPurchase input[type="submit"] {
+  background-color: #d25f5f !important;
+  color: #c56d6d !important;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 100px;
+  padding: 10px 20px 20px;
+}
+
+#ticketPurchase input[type="submit"]:hover {
+  background-color: #b0496d;
+}
+
+#ticketPurchase .errorList {
+  color: red;
+  margin-top: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 .form-container {
   text-align: center;
+  padding-bottom: 50px;
 }
 
 .form-container form {
@@ -89,7 +161,7 @@
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #64a19d;
+  --bs-primary: #a16469;
   --bs-secondary: #7464a1;
   --bs-success: #67c29c;
   --bs-info: #1cabc4;
