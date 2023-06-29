@@ -40,13 +40,19 @@ class EventSearchView(FormView):
     form_class = EventSearchForm
 
     def form_valid(self, form):
+
+        # Retrieve the cleaned search term from the form
         search_term = form.cleaned_data['search_term']
         self.request.session['search_term'] = search_term
+
+        # Proceed with the form validation using the parent class method
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
+        # Retrieve the context data from the parent class method
         context = super().get_context_data(**kwargs)
 
+        # Retrieve the search term from the session
         search_term = self.request.session.get('search_term')
 
         if search_term:
@@ -59,41 +65,46 @@ class EventSearchView(FormView):
 
             required_fields = ['title', 'date', 'address', 'link', 'description', 'venue', 'thumbnail']
 
-            search_results = []  # initialize an empty list to store search results
+            # Empty list to store search results
+            search_results = []
 
+            # Iterate over each event data obtained from the API response
             for event_data in response['events_results']:
-                # check if all required fields exist
+                # Check if all required fields exist in the event data
                 if not all(field in event_data for field in required_fields):
-                    continue  # skip this iteration if any required field is missing
+                    continue
 
-                # check if 'name' field exists in 'venue'
-                if 'name' not in event_data['venue']:
-                    continue  # skip this iteration if 'name' field is missing in 'venue'
-
+                # Extract necessary data for creating or updating the Event object
                 venue_name = event_data['venue']['name']
                 event_logo = event_data['thumbnail']
 
+                # Use the 'link' field to find unique events and update or create them in the database
                 event, created = Event.objects.update_or_create(
-                    link=event_data['link'],  # use 'link' to find unique events
+                    link=event_data['link'],
                     defaults={
                         'title': event_data['title'],
                         'start_date': event_data['date']['start_date'],
-                        'address': ", ".join(event_data['address']),  # 'address' appears to be a list of strings
+                        'address': ", ".join(event_data['address']),
                         'description': event_data['description'],
-                        'venue': venue_name,  # use the extracted venue_name
-                        # you might need to handle image download separately if event_logo is a URL
+                        'venue': venue_name,
                         'event_logo': event_logo,
                     },
                 )
 
-                search_results.append(event)  # add each created/updated event to the list
+                # Add each created/updated event to the search results list
+                search_results.append(event)
 
+            # Add the search results to the context
             context['search_results'] = search_results
 
         return context
 
     def get_success_url(self):
-        return self.request.path  # stay on the same page after form submission
+        # Return the current page URL to stay on the same page after form submission
+        return self.request.path
+
+
+"""Ticket classes"""
 
 
 class TicketPurchaseView(LoginRequiredMixin, View):

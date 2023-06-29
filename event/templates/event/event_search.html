@@ -18,6 +18,9 @@
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     margin-bottom: 20px;
+    width: 500px;
+    height: 400px;
+    overflow: auto;
   }
 
   .event-box:hover {
@@ -30,8 +33,7 @@
     margin: 10px 0;
   }
 </style>
-
-  <h2 style="text-align: center; padding-top: 50px">Search for Events</h2>
+  <h2 style="text-align: center; padding-top: 50px; color: #fcecc4">Search for Events</h2>
   <br>
   <div class="form-container">
   <form method="POST">
@@ -44,11 +46,9 @@
     </button>
   </form>
 </div>
-
-  <!-- Display search results -->
   <div class="event-container">
     {% if search_results %}
-      {% for event in search_results %}
+      {% for event in search_results %}F
         <div class="event-box">
           <h4>{{ event.title }}</h4>
           <p>{{ event.start_date }}</p>
@@ -60,7 +60,7 @@
         </div>
       {% endfor %}
     {% else %}
-      <p>No events found.</p>
+      <p style="color: #fcecc4">No events found :(</p>
     {% endif %}
   </div>
 {% endblock %}
