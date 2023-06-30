@@ -1,24 +1,22 @@
 {% extends 'event/base.html' %}
 
 {% block content %}
-    <div>
-
-        <h1>User Profile</h1>
-        <div>
-            <h2>Welcome, {{ user.username }}</h2>
-        </div>
-        <div>
-            <h3>
-                Tickets:
-            </h3>
-            <ul>
+    <br>
+    <br>
+    <br>
+        <h1 style="text-align: center">{{ user.username }}</h1>
+            <h4 style="text-align: center">
+            <br>
+                <br>
+                Upcoming events:
+            </h4>
                 {% for ticket in tickets %}
                     <li>{{ ticket.event.name }} - {{ ticket.event.start_date }}</li>
                 {% empty %}
-                    <li>No items found</li>
+                    <li style="color: #fcecc4; text-align: center">No events found</li>
                 {% endfor %}
-            </ul>
-        </div>
-    </div>
+    <br>
+    <br>
+
     <a href="{% url 'logout-page' %}" class="logout-button">Logout</a>
 {% endblock content %}

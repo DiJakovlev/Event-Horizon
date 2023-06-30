@@ -3,86 +3,95 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <header class="masthead">
-        <div class="container">
+    <section id="ticketPurchase">
+        <div class="event-ticket-purchase-container">
             <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="text-center">
-                        <img src="{% static 'theme/css/Event-modified.png' %}" alt="Event-Horizon Logo"
-                             class="logo-image">
-                        <h1 class="mb-3">Secure your tickets now!</h1>
+                <div class="col-md-4">
+                    <div class="event-details-box">
+                        <h2>Event details</h2>
+                        <p style="color: #fcecc4">Event: {{ event.title }}</p>
+                        <p style="color: #fcecc4">Date: {{ event.start_date }}</p>
+                        <p style="color: #fcecc4">Location: {{ event.venue }}</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </header>
-    <section id="ticketPurchase">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="text-center">
-                        <h2 class="mb-4">Event details</h2>
-                        <p class="lead">Event name : {{ event.title }}</p>
-                        <p class="lead">Date : {{ event.start_date }}</p>
-                        <p class="lead">Location : {{ event.venue }}</p>
 
+                <div class="col-md-8">
+                    <div class="event-form-purchase-container">
                         <h2 class="mt-5 mb-4">Purchase tickets</h2>
-                            <form method="post" action="{% url 'ticket-purchase' event.id %}">
-                                {% csrf_token %}
-                                <div class="form-group">
-                                    <label for="ticketQuantity">Ticket quantity:</label>
-                                    <input type="number" class="form-control" id="ticketQuantity" min="1" required>
+                        <form id="ticketForm" method="post" action="{% url 'ticket-purchase' event.id %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="ticketQuantity" style="color: rgba(252, 236, 196, 0.66)">Ticket quantity:</label>
+                                <input type="number" class="form-control" id="ticketQuantity" min="1" required>
+                            </div>
+                            <h2 class="mt-5 mb-4">Personal information</h2>
+                            <div class="form-group">
+                                <label for="firstName" style="color: rgba(252, 236, 196, 0.66)">First name</label>
+                                <input type="text" class="form-control" id="firstName" name="first_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" style="color: rgba(252, 236, 196, 0.66)">Last name</label>
+                                <input type="text" class="form-control" id="lastName" name="last_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="country" style="color: rgba(252, 236, 196, 0.66)">Country</label>
+                                <input type="text" class="form-control" id="country" name="country" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="county" style="color: rgba(252, 236, 196, 0.66)">County</label>
+                                <input type="text" class="form-control" id="county" name="county" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="city" style="color: rgba(252, 236, 196, 0.66)">City</label>
+                                <input type="text" class="form-control" id="city" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address" style="color: rgba(252, 236, 196, 0.66)">Address</label>
+                                <input type="text" class="form-control" id="address" name="address" required>
+                            </div>
+                            <h2>Please select preferred payment method</h2>
+                            <div class="bank-selection">
+                                <div class="bank-logo" data-bank="bank1">
+                                    <img src="{% static 'theme/assets/img/logo-tbb.png' %}" alt="TBB bank">
                                 </div>
-                                <h2 class="mt-5 mb-4">Personal information</h2>
-                                <div class="form-group">
-                                    <label for="firstName">First name</label>
-                                    <input type="text" class="form-control" id="firstName" name="first_name" required>
+                                <div class="bank-logo" data-bank="bank2">
+                                    <img src="{% static 'theme/assets/img/logo_coop.png' %}" alt="COOP bank">
                                 </div>
-                                <div class="form-group">
-                                    <label for="lastName">Last name</label>
-                                    <input type="text" class="form-control" id="lastName" name="last_name" required>
+                                <div class="bank-logo" data-bank="bank3">
+                                    <img src="{% static 'theme/assets/img/logo-seb2.png' %}" alt="SEB bank">
                                 </div>
-                                <div class="form-group">
-                                    <label for="country">Country</label>
-                                    <input type="text" class="form-control" id="country" name="country" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="county">County</label>
-                                    <input type="text" class="form-control" id="county" name="county" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="city">City</label>
-                                    <input type="text" class="form-control" id="city" name="city" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="address">Address</label>
-                                    <input type="text" class="form-control" id="address" name="address" required>
-                                </div>
-                                <h2>Please select preferred payment method</h2>
-                                <div class="bank-selection">
-                                    <div class="bank-logo" data-bank="bank1">
-                                        <img src="{% static 'theme/assets/img/logo-tbb.png' %}" alt="TBB bank" >
-                                    </div>
-                                    <div class="bank-logo" data-bank="bank2">
-                                        <img src="{% static 'theme/assets/img/logo_coop.png' %}" alt="COOP bank" >
-                                    </div>
-                                    <div class="bank-logo" data-bank="bank3">
-                                        <img src="{% static 'theme/assets/img/logo-seb2.png' %}" alt="SEB bank" >
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="checkbox" class="form-check-input" id="termsCheck" required>
-                                    <label class="form-check-label" for="termsCheck">I agree to the terms of
-                                        usage</label>
-                                </div>
-
-                                <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-lg custom-button">Proceed</button>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                                <label class="form-check-label" for="termsCheck" style="color: rgba(252, 236, 196, 0.66)">I agree to the terms of usage</label>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-danger" onclick="validateForm()">Proceed</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        function validateForm() {
+            // Validate the form fields
+            var ticketQuantity = document.getElementById('ticketQuantity').value;
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var country = document.getElementById('country').value;
+            var county = document.getElementById('county').value;
+            var city = document.getElementById('city').value;
+            var address = document.getElementById('address').value;
+            var termsCheck = document.getElementById('termsCheck').checked;
+
+            if (ticketQuantity && firstName && lastName && country && county && city && address && termsCheck) {
+                window.location.href = "{% url 'purchase-confirmation' event.id %}"; // Redirect to the desired page
+            } else {
+                alert('Please fill in all the required fields.'); // Show an error message
+            }
+        }
+    </script>
 {% endblock content %}
