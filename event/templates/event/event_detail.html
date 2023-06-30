@@ -1,12 +1,67 @@
 {% extends 'event/base.html' %}
 {% block content %}
-  <div class="container">
+<style>
+    .container {
+        border: 1px solid rgb(252, 236, 196);
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    h2 {
+        font-size: 24px;
+        color: rgb(252, 236, 196);
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    p {
+        margin-bottom: 8px;
+        text-align: left;
+    }
+
+    .description {
+        font-style: italic;
+        color: rgb(252, 236, 196);
+        text-align: left;
+    }
+
+    .ticket-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #fcecc4;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        text-align: left;
+    }
+
+    .ticket-button:hover {
+transform: scale(0.9);
+        color: white;
+    }
+
+    .event-link {
+        text-decoration: underline;
+    }
+</style>
+<br>
+    <br>
+    <br>
+<div class="container">
     <h2>{{ event.title }}</h2>
     <p><strong>Start Date:</strong> {{ event.start_date }}</p>
     <p><strong>Address:</strong> {{ event.address }}</p>
     <p><strong>Venue:</strong> {{ event.venue }}</p>
-    <p><strong>Description:</strong> {{ event.description }}</p>
-    <p><strong>Link:</strong> <a href="{{ event.link }}">{{ event.link }}</a></p>
+    <p class="description"><strong>Description:</strong> {{ event.description }}</p>
+    <p><strong>Link:</strong> <a href="{{ event.link }}" class="event-link" style="color: rgba(252, 64, 54, 0.68);">{{ event.link }}</a></p>
     <img src="{{ event.event_logo }}" alt="{{ event.title }} logo">
-  </div>
+    <br>
+    <a href="{% url 'ticket-purchase' event.id %}" class="ticket-button" style="background-color: rgba(252, 64, 54, 0.68);">Buy a ticket</a>
+</div>
 {% endblock %}

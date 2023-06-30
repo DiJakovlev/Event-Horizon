@@ -108,13 +108,14 @@ textarea {
   background-color: #a16468;
 }
 
-.form-container form .btn btn-danger{
+.form-container form .btn btn-danger {
   margin-top: 10px;
   padding: 8px 16px;
   border-radius: 4px;
-  color: #fcecc4;
-  background-color: rgba(252, 64, 54, 0.68);
+  background-color: #dc3545;
+  color: white;
   border: none;
+}
 }
 
 .form-container form .btn i {
@@ -761,6 +762,44 @@ progress {
   color: #6c757d;
 }
 
+.event-ticket-purchase-container {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 20px;
+  text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.event-form-purchase-container {
+    padding: 20px;
+    border: 1px solid rgba(252, 236, 196, 0.66);
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    margin-bottom: 20px;
+  text-align: center;
+}
+
+
+
+.event-details-box {
+    padding: 20px;
+    border-radius: 5px;
+  border: 1px solid rgba(252, 236, 196, 0.66);
+}
+
+.event-details-box h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.event-form-purchase-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+
+
 .container,
 .container-fluid,
 .container-xxl,
@@ -775,6 +814,7 @@ progress {
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-right: auto;
   margin-left: auto;
+  color: #fcecc4;
 }
 
 @media (min-width: 576px) {
@@ -3906,6 +3946,7 @@ textarea.form-control-lg {
     cursor: pointer;
     text-decoration: none;
     text-align: center;
+  margin: 0 auto;
 }
 
 .logout-button:hover {
