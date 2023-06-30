@@ -1,19 +1,88 @@
 {% extends 'event/base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-<h1>Ticket purchase</h1>
-<div>
-    <h2>{{ form.event.name }}</h2>
-    <p>Start date: {{ form.event.start_date }}</p>
-    <p>Price: {{ form.event.price }}</p>
+    <header class="masthead">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="text-center">
+                        <img src="{% static 'theme/css/Event-modified.png' %}" alt="Event-Horizon Logo"
+                             class="logo-image">
+                        <h1 class="mb-3">Secure your tickets now!</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="ticketPurchase">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="text-center">
+                        <h2 class="mb-4">Event details</h2>
+                        <p class="lead">Event name : {{ event.title }}</p>
+                        <p class="lead">Date : {{ event.start_date }}</p>
+                        <p class="lead">Location : {{ event.venue }}</p>
 
-    <form method="POST">
-    {% csrf_token %}
+                        <h2 class="mt-5 mb-4">Purchase tickets</h2>
+                            <form method="post" action="{% url 'ticket-purchase' event.id %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="ticketQuantity">Ticket quantity:</label>
+                                    <input type="number" class="form-control" id="ticketQuantity" min="1" required>
+                                </div>
+                                <h2 class="mt-5 mb-4">Personal information</h2>
+                                <div class="form-group">
+                                    <label for="firstName">First name</label>
+                                    <input type="text" class="form-control" id="firstName" name="first_name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last name</label>
+                                    <input type="text" class="form-control" id="lastName" name="last_name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <input type="text" class="form-control" id="country" name="country" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="county">County</label>
+                                    <input type="text" class="form-control" id="county" name="county" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" id="city" name="city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address" required>
+                                </div>
+                                <h2>Please select preferred payment method</h2>
+                                <div class="bank-selection">
+                                    <div class="bank-logo" data-bank="bank1">
+                                        <img src="{% static 'theme/assets/img/logo-tbb.png' %}" alt="TBB bank" >
+                                    </div>
+                                    <div class="bank-logo" data-bank="bank2">
+                                        <img src="{% static 'theme/assets/img/logo_coop.png' %}" alt="COOP bank" >
+                                    </div>
+                                    <div class="bank-logo" data-bank="bank3">
+                                        <img src="{% static 'theme/assets/img/logo-seb2.png' %}" alt="SEB bank" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                                    <label class="form-check-label" for="termsCheck">I agree to the terms of
+                                        usage</label>
+                                </div>
 
-    {{ form.as_p }}
-
-    <input type="submit" value="Purchase">
-    </form>
-</div>
+                                <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-lg custom-button">Proceed</button>
+                                </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock content %}
