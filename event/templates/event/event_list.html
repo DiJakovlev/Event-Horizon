@@ -1,11 +1,55 @@
 {% extends 'event/base.html' %}
 {% block content %}
+<style>
+  .event-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 70px;
+  }
 
-    {% for event in object_list %}
-    <h2>{{ event.title }}</h2>
-    <p>{{ event.start_date }}</p>
-    <p>{{ event.address }}</p>
-    <img src="{{ event.event_logo }}" alt="{{ event.title }} logo">
-    <a href="{% url 'detail-view' event.id %}">Click to find out more!</a>
-{% endfor %}
+  .event-box {
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+    color: rgba(252, 236, 196, 0.66);
+    padding: 30px;
+    border: 1px solid rgba(252, 236, 196, 0.66);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    margin-bottom: 20px;
+    width: 500px;
+    height: 400px;
+    overflow: auto;
+  }
+
+  .event-box:hover {
+    transform: scale(1.05) translateZ(1px);
+  }
+
+  .event-box img {
+    max-width: 200px;
+    height: auto;
+    margin: 10px 0;
+  }
+</style>
+
+<h2 style="text-align: center; padding-top: 50px; color: #fcecc4">All Events</h2>
+<br>
+
+<div class="event-container">
+  {% for event in object_list %}
+    <div class="event-box">
+      <h4>{{ event.title }}</h4>
+      <p>{{ event.start_date }}</p>
+      <p>{{ event.address }}</p>
+      <img src="{{ event.event_logo }}" alt="{{ event.title }} logo" style="max-height:200px; max-width:200px;">
+      <br>
+      <br>
+      <a href="{% url 'detail-view' event.id %}" class="btn btn-danger">Read more</a>
+    </div>
+  {% empty %}
+    <p>No events found.</p>
+  {% endfor %}
+</div>
+
 {% endblock content %}
